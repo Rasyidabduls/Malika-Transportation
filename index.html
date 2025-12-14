@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan Bus Malika Wisata</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 0 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+            transition: background-color 0.2s;
+        }
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        input, select {
+            border-color: #d1d5db !important;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="form-container rounded-xl p-6 md:p-10">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Malika Wisata</h1>
+            <h2 class="text-xl font-semibold text-gray-700">Hitung & Pesan Perjalanan Anda</h2>
+            <p class="text-sm text-gray-500 mt-2">Isi detail perjalanan Anda, dan kami akan menghubungi Anda melalui WhatsApp untuk konfirmasi dan penawaran harga terbaik.</p>
+        </header>
+
+        <form id="reservationForm" class="space-y-6">
+
+            <!-- Nama dan No. HP -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="customerName" class="block text-sm font-medium text-gray-700 mb-1">Nama Pemesan (A.N)</label>
+                    <input type="text" id="customerName" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="Contoh: Budi Santoso" required>
+                </div>
+                <div>
+                    <label for="customerPhone" class="block text-sm font-medium text-gray-700 mb-1">Nomor HP Aktif</label>
+                    <input type="tel" id="customerPhone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="Contoh: 081234567890" required>
+                </div>
+            </div>
+
+            <!-- Tanggal Penyewaan -->
+            <div>
+                <label for="rentalDate" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Penyewaan</label>
+                <input type="date" id="rentalDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+            </div>
+
+            <!-- Lokasi Jemput -->
+            <div>
+                <label for="pickupLocation" class="block text-sm font-medium text-gray-700 mb-1">Alamat Jemput</label>
+                <input type="text" id="pickupLocation" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="Contoh: Cengkareng Green Crout" required>
+            </div>
+
+            <!-- Tujuan -->
+            <div>
+                <label for="destination" class="block text-sm font-medium text-gray-700 mb-1">Tujuan Perjalanan (Wisata)</label>
+                <input type="text" id="destination" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="Contoh: Taman Herbal" required>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Durasi Perjalanan -->
+                <div>
+                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Durasi (Hari)</label>
+                    <input type="number" id="duration" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="Contoh: 1" value="1" required>
+                </div>
+                
+                <!-- Kapasitas Bus -->
+                <div>
+                    <label for="capacity" class="block text-sm font-medium text-gray-700 mb-1">Kapasitas Kendaraan (Seats)</label>
+                    <select id="capacity" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+                        <option value="" disabled selected>-- Pilih Kapasitas --</option>
+                        <option value="59 Seats (Big Bus)">59 Seats (Big Bus)</option>
+                        <option value="50 Seats (Big Bus)">50 Seats (Big Bus)</option>
+                        <option value="48 Seats (Big Bus)">48 Seats (Big Bus)</option>
+                        <option value="36 Seats (Medium Bus)">36 Seats (Medium Bus)</option>
+                        <option value="31 Seats (Medium Bus)">31 Seats (Medium Bus)</option>
+                        <option value="32 Seats (VIP Class)">32 Seats (VIP Class)</option>
+                    </select>
+                </div>
+
+                <!-- Jam Standby -->
+                <div>
+                    <label for="standbyTime" class="block text-sm font-medium text-gray-700 mb-1">Jam Standby</label>
+                    <input type="time" id="standbyTime" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+                </div>
+
+            </div>
+
+            <!-- Tombol WhatsApp -->
+            <button type="submit" id="whatsappButton" class="whatsapp-btn w-full flex items-center justify-center p-4 text-lg font-bold text-white rounded-lg shadow-xl hover:shadow-2xl transition duration-300 mt-8">
+                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.04 2c-5.56 0-10.08 4.52-10.08 10.08 0 1.76.46 3.44 1.35 4.9l-.91 3.32 3.42-.89c1.42.78 3.03 1.21 4.8 1.21 5.56 0 10.08-4.52 10.08-10.08s-4.52-10.08-10.08-10.08zm4.84 14.84c-.16.27-.45.39-.73.39-.23 0-.47-.07-.67-.2l-2.02-1.05c-.17-.09-.37-.13-.56-.13-.08 0-.17.02-.25.04l-.08.02-2.01 1.04c-.39.2-.87.21-1.27.02-.4-.2-.67-.57-.67-1.01v-3.47c0-.28.1-.55.28-.73l1.96-2.04c.18-.18.41-.28.66-.28.08 0 .17.01.25.03l2.02.53c.27.07.55.07.82 0l2.02-.53c.25-.06.5-.06.74.02.16.05.3.13.43.25l2.02 2.04c.18.18.28.45.28.73v3.47c0 .44-.27.81-.67 1.01z"/>
+                </svg>
+                HUBUNGI KAMI VIA WHATSAPP SEKARANG
+            </button>
+            <div id="error-message" class="text-center text-red-600 mt-4 hidden">Mohon lengkapi semua kolom yang wajib diisi.</div>
+        </form>
+    </div>
+
+    <!-- Script untuk Firebase (Mandatory Boilerplate) dan Logika WhatsApp -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Variabel Global Canvas (MANDATORY) ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app;
+        let auth;
+        let db;
+        let userId = 'anonymous';
+
+        // Fungsi Inisialisasi Firebase (Wajib ada)
+        async function initializeFirebase() {
+            if (!firebaseConfig) {
+                console.warn("Firebase config is missing. Running in basic mode.");
+                return;
+            }
+            
+            try {
+                setLogLevel('debug');
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Autentikasi
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase Auth Ready. User ID:", userId);
+                    } else {
+                        userId = 'anonymous-' + crypto.randomUUID(); 
+                        console.log("User is signed out or anonymous. User ID:", userId);
+                    }
+                });
+                
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+            }
+        }
+        
+        // --- Logika Utama Aplikasi (WhatsApp Link Generator) ---
+        
+        // NOMOR HOTLINE MALIKA WISATA (Sudah diupdate ke 0812-1112-0080)
+        const HOTLINE_NUMBER = "6281211120080"; 
+
+        const form = document.getElementById('reservationForm');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const customerName = document.getElementById('customerName').value.trim();
+            const customerPhone = document.getElementById('customerPhone').value.trim();
+            const rentalDate = document.getElementById('rentalDate').value.trim();
+            const pickupLocation = document.getElementById('pickupLocation').value.trim();
+            const destination = document.getElementById('destination').value.trim();
+            const duration = document.getElementById('duration').value.trim();
+            const capacity = document.getElementById('capacity').value;
+            const standbyTime = document.getElementById('standbyTime').value.trim();
+
+
+            // Validasi Sederhana
+            if (!customerName || !customerPhone || !rentalDate || !pickupLocation || !destination || !duration || !capacity || !standbyTime) {
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+            errorMessage.classList.add('hidden');
+            
+            // Format Tanggal untuk Pesan (misal: 2025-12-14 menjadi 14 Des 2025)
+            const dateObj = new Date(rentalDate);
+            const formattedDate = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            // 1. Buat Pesan Pre-filled
+            const message = `
+Halo Malika Wisata, saya ingin reservasi bus. Mohon diproses.
+
+*Detail Reservasi Pelanggan:*
+===========================
+🚌 Kapasitas Kendaraan : ${capacity}
+🗓 Tanggal Penyewaan : ${formattedDate} (${duration} Hari)
+🏝 Tujuan : ${destination}
+🏠 Alamat Jemput : ${pickupLocation}
+⏰ Jam Standby : ${standbyTime} WIB
+📱 A.N & No. HP : ${customerName} (${customerPhone})
+===========================
+
+Mohon kirimkan Penawaran Harga (termasuk biaya non-sewa) secepatnya. Terima kasih.
+            `.trim();
+
+            // 2. URL Encode Pesan
+            const encodedMessage = encodeURIComponent(message);
+            
+            // 3. Buat Link WhatsApp
+            const whatsappLink = `https://wa.me/${HOTLINE_NUMBER}?text=${encodedMessage}`;
+            
+            // 4. Redirect
+            window.open(whatsappLink, '_blank');
+        });
+
+        // Panggil Inisialisasi Firebase saat window selesai dimuat
+        window.addEventListener('load', initializeFirebase);
+        
+    </script>
+</body>
+</html>
