@@ -19,12 +19,21 @@
             background-color: #ffffff;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 0 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .whatsapp-btn {
-            background-color: #25D366;
+        /* Style untuk tombol Pemesanan (Hijau WhatsApp) */
+        .whatsapp-btn-order {
+            background-color: #25D366; /* Hijau WhatsApp */
             transition: background-color 0.2s;
         }
-        .whatsapp-btn:hover {
+        .whatsapp-btn-order:hover {
             background-color: #128C7E;
+        }
+        /* Style untuk tombol Tanya-Tanya (Biru Tua Malika) */
+        .whatsapp-btn-info {
+            background-color: #0D47A1; /* Deep Blue, matching Malika theme */
+            transition: background-color 0.2s;
+        }
+        .whatsapp-btn-info:hover {
+            background-color: #08387A;
         }
         input, select {
             border-color: #d1d5db !important;
@@ -35,9 +44,11 @@
 
     <div class="form-container rounded-xl p-6 md:p-10">
         <header class="text-center mb-8">
+            <!-- Logo Malika Trans Utama (Menggunakan placeholder bertema Merah/Biru) -->
+            <img src="https://placehold.co/150x150/ffffff/E71D36?text=MALIKA+WISATA" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffffff/E71D36?text=MALIKA+WISATA'" class="mx-auto mb-4 rounded-full border-4 border-blue-600 shadow-lg p-2 bg-gray-50" alt="Logo Malika Wisata">
             <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Malika Wisata</h1>
-            <h2 class="text-xl font-semibold text-gray-700">Hitung & Pesan Perjalanan Anda</h2>
-            <p class="text-sm text-gray-500 mt-2">Isi detail perjalanan Anda, dan kami akan menghubungi Anda melalui WhatsApp untuk konfirmasi dan penawaran harga terbaik.</p>
+            <h2 class="text-xl font-semibold text-gray-700">Formulir Pemesanan Bus & Konsultasi Cepat</h2>
+            <p class="text-sm text-gray-500 mt-2">Isi detail perjalanan Anda dan tentukan jumlah serta jenis bus yang dibutuhkan.</p>
         </header>
 
         <form id="reservationForm" class="space-y-6">
@@ -54,10 +65,25 @@
                 </div>
             </div>
 
-            <!-- Tanggal Penyewaan -->
-            <div>
-                <label for="rentalDate" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Penyewaan</label>
-                <input type="date" id="rentalDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+            <!-- Tanggal, Durasi, Jam Standby -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                 <!-- Tanggal Penyewaan -->
+                <div>
+                    <label for="rentalDate" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Penyewaan</label>
+                    <input type="date" id="rentalDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+                </div>
+
+                <!-- Durasi Perjalanan -->
+                <div>
+                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Durasi (Hari)</label>
+                    <input type="number" id="duration" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="1" value="1" required>
+                </div>
+
+                <!-- Jam Standby -->
+                <div>
+                    <label for="standbyTime" class="block text-sm font-medium text-gray-700 mb-1">Jam Standby</label>
+                    <input type="time" id="standbyTime" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+                </div>
             </div>
 
             <!-- Lokasi Jemput -->
@@ -71,45 +97,54 @@
                 <label for="destination" class="block text-sm font-medium text-gray-700 mb-1">Tujuan Perjalanan (Wisata)</label>
                 <input type="text" id="destination" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="Contoh: Taman Herbal" required>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Durasi Perjalanan -->
-                <div>
-                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Durasi (Hari)</label>
-                    <input type="number" id="duration" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" placeholder="Contoh: 1" value="1" required>
-                </div>
+            
+            <!-- SECTION TAMBAH BUS DINAMIS -->
+            <div class="pt-4 border-t border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2m8-13V7a2 2 0 012-2h2a2 2 0 012 2v3m-4 5h.01M19 12a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Detail Bus yang Dibutuhkan
+                </h3>
                 
-                <!-- Kapasitas Bus -->
-                <div>
-                    <label for="capacity" class="block text-sm font-medium text-gray-700 mb-1">Kapasitas Kendaraan (Seats)</label>
-                    <select id="capacity" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
-                        <option value="" disabled selected>-- Pilih Kapasitas --</option>
-                        <option value="59 Seats (Big Bus)">59 Seats (Big Bus)</option>
-                        <option value="50 Seats (Big Bus)">50 Seats (Big Bus)</option>
-                        <option value="48 Seats (Big Bus)">48 Seats (Big Bus)</option>
-                        <option value="36 Seats (Medium Bus)">36 Seats (Medium Bus)</option>
-                        <option value="31 Seats (Medium Bus)">31 Seats (Medium Bus)</option>
-                        <option value="32 Seats (VIP Class)">32 Seats (VIP Class)</option>
-                    </select>
+                <div id="busContainer" class="space-y-4">
+                    <!-- Bus Row akan dimasukkan di sini oleh JS -->
                 </div>
 
-                <!-- Jam Standby -->
-                <div>
-                    <label for="standbyTime" class="block text-sm font-medium text-gray-700 mb-1">Jam Standby</label>
-                    <input type="time" id="standbyTime" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
-                </div>
-
+                <button type="button" id="addBusButton" class="w-full mt-4 p-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition duration-150 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Tambah Jenis/Unit Bus
+                </button>
             </div>
+            <!-- END SECTION TAMBAH BUS DINAMIS -->
 
-            <!-- Tombol WhatsApp -->
-            <button type="submit" id="whatsappButton" class="whatsapp-btn w-full flex items-center justify-center p-4 text-lg font-bold text-white rounded-lg shadow-xl hover:shadow-2xl transition duration-300 mt-8">
+
+            <!-- Tombol WhatsApp Pemesanan (Masih di dalam form agar validasi berjalan) -->
+            <button type="submit" id="whatsappButtonOrder" class="whatsapp-btn-order w-full flex items-center justify-center p-4 text-lg font-bold text-white rounded-lg shadow-xl hover:shadow-2xl transition duration-300 mt-8">
                 <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.04 2c-5.56 0-10.08 4.52-10.08 10.08 0 1.76.46 3.44 1.35 4.9l-.91 3.32 3.42-.89c1.42.78 3.03 1.21 4.8 1.21 5.56 0 10.08-4.52 10.08-10.08s-4.52-10.08-10.08-10.08zm4.84 14.84c-.16.27-.45.39-.73.39-.23 0-.47-.07-.67-.2l-2.02-1.05c-.17-.09-.37-.13-.56-.13-.08 0-.17.02-.25.04l-.08.02-2.01 1.04c-.39.2-.87.21-1.27.02-.4-.2-.67-.57-.67-1.01v-3.47c0-.28.1-.55.28-.73l1.96-2.04c.18-.18.41-.28.66-.28.08 0 .17.01.25.03l2.02.53c.27.07.55.07.82 0l2.02-.53c.25-.06.5-.06.74.02.16.05.3.13.43.25l2.02 2.04c.18.18.28.45.28.73v3.47c0 .44-.27.81-.67 1.01z"/>
                 </svg>
-                HUBUNGI KAMI VIA WHATSAPP SEKARANG
+                1. KUNCI HARGA (Kirim Formulir Pemesanan)
             </button>
-            <div id="error-message" class="text-center text-red-600 mt-4 hidden">Mohon lengkapi semua kolom yang wajib diisi.</div>
+            <div id="error-message" class="text-center text-red-600 mt-4 hidden">Mohon lengkapi semua kolom yang wajib diisi dan minimal 1 detail Bus.</div>
         </form>
+
+        <!-- Separator -->
+        <div class="my-8 flex items-center">
+            <div class="flex-grow border-t border-gray-300"></div>
+            <span class="flex-shrink mx-4 text-sm text-gray-500 font-medium">ATAU</span>
+            <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <!-- Tombol Tanya-Tanya Saja -->
+        <button id="whatsappButtonInfo" class="whatsapp-btn-info w-full flex items-center justify-center p-4 text-lg font-bold text-white rounded-lg shadow-xl hover:shadow-2xl transition duration-300">
+            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.04 2c-5.56 0-10.08 4.52-10.08 10.08 0 1.76.46 3.44 1.35 4.9l-.91 3.32 3.42-.89c1.42.78 3.03 1.21 4.8 1.21 5.56 0 10.08-4.52 10.08-10.08s-4.52-10.08-10.08-10.08zm4.84 14.84c-.16.27-.45.39-.73.39-.23 0-.47-.07-.67-.2l-2.02-1.05c-.17-.09-.37-.13-.56-.13-.08 0-.17.02-.25.04l-.08.02-2.01 1.04c-.39.2-.87.21-1.27.02-.4-.2-.67-.57-.67-1.01v-3.47c0-.28.1-.55.28-.73l1.96-2.04c.18-.18.41-.28.66-.28.08 0 .17.01.25.03l2.02.53c.27.07.55.07.82 0l2.02-.53c.25-.06.5-.06.74.02.16.05.3.13.43.25l2.02 2.04c.18.18.28.45.28.73v3.47c0 .44-.27.81-.67 1.01z"/>
+            </svg>
+            2. TANYA-TANYA (Konsultasi Harga & Ketersediaan)
+        </button>
     </div>
 
     <!-- Script untuk Firebase (Mandatory Boilerplate) dan Logika WhatsApp -->
@@ -170,7 +205,86 @@
 
         const form = document.getElementById('reservationForm');
         const errorMessage = document.getElementById('error-message');
+        const infoButton = document.getElementById('whatsappButtonInfo');
+        const busContainer = document.getElementById('busContainer');
+        const addBusButton = document.getElementById('addBusButton');
 
+        // Pilihan Kapasitas Bus (Updated with 45, 37, 39 Seats)
+        const CAPACITY_OPTIONS = [
+            "59 Seats (Big Bus)",
+            "50 Seats (Big Bus)",
+            "48 Seats (Big Bus)",
+            "45 Seats (Big Bus)", // Tambahan
+            "39 Seats (Medium Bus)", // Tambahan
+            "37 Seats (Medium Bus)", // Tambahan
+            "36 Seats (Medium Bus)",
+            "31 Seats (Medium Bus)",
+            "32 Seats (VIP Class)"
+        ];
+
+        let busCounter = 0;
+
+        // Fungsi untuk membuat elemen baris input bus
+        function createBusRow(isInitial = false) {
+            busCounter++;
+            const busId = `bus-${busCounter}`;
+            
+            const div = document.createElement('div');
+            div.className = 'bus-row p-4 border border-gray-300 rounded-lg bg-gray-50 relative';
+            div.setAttribute('data-bus-id', busId);
+
+            let optionsHtml = CAPACITY_OPTIONS.map(opt => 
+                `<option value="${opt}" ${isInitial && opt.includes("59 Seats") ? 'selected' : ''}>${opt}</option>`
+            ).join('');
+
+            div.innerHTML = `
+                <div class="flex justify-between items-center mb-3">
+                    <h4 class="text-md font-semibold text-gray-700">Bus #${busCounter}</h4>
+                    ${!isInitial ? `<button type="button" class="remove-bus-btn text-red-500 hover:text-red-700 text-sm font-medium transition duration-150">Hapus</button>` : ''}
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Kapasitas</label>
+                        <select name="capacity" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+                            <option value="" disabled ${!isInitial ? 'selected' : ''}>-- Pilih Kapasitas --</option>
+                            ${optionsHtml}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Jumlah Unit</label>
+                        <input type="number" name="unitCount" min="1" value="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-sky-500 focus:border-sky-500" required>
+                    </div>
+                </div>
+            `;
+            
+            busContainer.appendChild(div);
+
+            // Add event listener for remove button
+            if (!isInitial) {
+                div.querySelector('.remove-bus-btn').addEventListener('click', () => {
+                    busContainer.removeChild(div);
+                    // Re-index bus titles (optional but good practice)
+                    updateBusTitles();
+                });
+            }
+        }
+
+        // Fungsi untuk mengupdate nomor urut Bus setelah penghapusan
+        function updateBusTitles() {
+            document.querySelectorAll('.bus-row').forEach((row, index) => {
+                row.querySelector('h4').textContent = `Bus #${index + 1}`;
+            });
+            busCounter = document.querySelectorAll('.bus-row').length;
+        }
+
+        // Tambahkan satu baris bus saat halaman pertama kali dimuat
+        createBusRow(true);
+
+        // Event listener untuk tombol Tambah Bus
+        addBusButton.addEventListener('click', () => createBusRow());
+
+
+        // 1. Logika untuk Tombol Pemesanan (Form Submit)
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -180,34 +294,59 @@
             const pickupLocation = document.getElementById('pickupLocation').value.trim();
             const destination = document.getElementById('destination').value.trim();
             const duration = document.getElementById('duration').value.trim();
-            const capacity = document.getElementById('capacity').value;
+
+            const busRows = document.querySelectorAll('.bus-row');
+            const busDetails = [];
+
+            // Kumpulkan detail setiap bus
+            busRows.forEach((row, index) => {
+                const capacity = row.querySelector('[name="capacity"]').value;
+                const unitCount = row.querySelector('[name="unitCount"]').value;
+                
+                if (capacity && unitCount > 0) {
+                    busDetails.push({
+                        capacity: capacity,
+                        unitCount: unitCount
+                    });
+                }
+            });
+
             const standbyTime = document.getElementById('standbyTime').value.trim();
-
-
-            // Validasi Sederhana
-            if (!customerName || !customerPhone || !rentalDate || !pickupLocation || !destination || !duration || !capacity || !standbyTime) {
+            
+            // Validasi: Pastikan field utama terisi DAN minimal ada 1 detail bus
+            if (!customerName || !customerPhone || !rentalDate || !pickupLocation || !destination || !duration || busDetails.length === 0 || !standbyTime) {
                 errorMessage.classList.remove('hidden');
                 return;
             }
             errorMessage.classList.add('hidden');
             
-            // Format Tanggal untuk Pesan (misal: 2025-12-14 menjadi 14 Des 2025)
+            // Format Tanggal untuk Pesan
             const dateObj = new Date(rentalDate);
             const formattedDate = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
             
+            // Buat List Detail Bus untuk Pesan WhatsApp
+            let busListMessage = '';
+            let totalUnits = 0;
+            busDetails.forEach((bus, index) => {
+                busListMessage += `\nBus #${index + 1}: ${bus.unitCount} Unit (${bus.capacity})`;
+                totalUnits += parseInt(bus.unitCount);
+            });
+            
             // 1. Buat Pesan Pre-filled
             const message = `
-Halo Malika Wisata, saya ingin reservasi bus. Mohon diproses.
+Halo Malika Wisata, saya ingin reservasi ${totalUnits} unit bus. Mohon diproses.
 
 *Detail Reservasi Pelanggan:*
 ===========================
-🚌 Kapasitas Kendaraan : ${capacity}
+🚌 Total Unit : ${totalUnits} Unit
 🗓 Tanggal Penyewaan : ${formattedDate} (${duration} Hari)
 🏝 Tujuan : ${destination}
 🏠 Alamat Jemput : ${pickupLocation}
 ⏰ Jam Standby : ${standbyTime} WIB
-📱 A.N & No. HP : ${customerName} (${customerPhone})
 ===========================
+*Detail Kebutuhan Bus:*${busListMessage}
+===========================
+📱 A.N & No. HP : ${customerName} (${customerPhone})
 
 Mohon kirimkan Penawaran Harga (termasuk biaya non-sewa) secepatnya. Terima kasih.
             `.trim();
@@ -221,6 +360,27 @@ Mohon kirimkan Penawaran Harga (termasuk biaya non-sewa) secepatnya. Terima kasi
             // 4. Redirect
             window.open(whatsappLink, '_blank');
         });
+        
+        // 2. Logika untuk Tombol Tanya-Tanya (Non-Pemesanan)
+        if (infoButton) {
+            infoButton.addEventListener('click', function() {
+                // Template pesan untuk non-pemesanan
+                const message = `
+Halo Malika Wisata,
+
+Saya ingin tanya-tanya terlebih dahulu mengenai:
+- Ketersediaan Bus
+- Daftar Harga
+- Persyaratan Sewa
+
+Mohon info lebih lanjut, terima kasih!
+                `.trim();
+
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappLink = `https://wa.me/${HOTLINE_NUMBER}?text=${encodedMessage}`;
+                window.open(whatsappLink, '_blank');
+            });
+        }
 
         // Panggil Inisialisasi Firebase saat window selesai dimuat
         window.addEventListener('load', initializeFirebase);
